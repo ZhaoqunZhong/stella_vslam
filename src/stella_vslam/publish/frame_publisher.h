@@ -26,8 +26,10 @@ public:
     /**
      * Constructor
      */
-    frame_publisher(const std::shared_ptr<config>& cfg, data::map_database* map_db,
-                    const unsigned int img_width = 1024);
+    frame_publisher(const std::shared_ptr<config>& cfg, data::map_database* map_db, 
+                    const std::vector<std::vector<float>>& mask_rects,
+                    const unsigned int img_width = 1024
+                    );
 
     /**
      * Destructor
@@ -87,6 +89,9 @@ protected:
     bool mapping_is_enabled_;
 
     std::vector<std::shared_ptr<data::landmark>> curr_lms_;
+
+    std::vector<std::vector<float>> mask_rects_;
+
 };
 
 } // namespace publish

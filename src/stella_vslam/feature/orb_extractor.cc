@@ -5,6 +5,7 @@
 #include <opencv2/core/types.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/features2d.hpp>
+#include <opencv2/opencv.hpp>
 
 #include <iostream>
 
@@ -112,6 +113,8 @@ void orb_extractor::create_rectangle_mask(const unsigned int cols, const unsigne
         const unsigned int y_max = std::round(rows * mask_rect.at(3));
         cv::rectangle(rect_mask_, cv::Point2i(x_min, y_min), cv::Point2i(x_max, y_max), cv::Scalar(0), -1, cv::LINE_AA);
     }
+    cv::imwrite("mask.jpg",rect_mask_); 
+    std::cout << "mask image created." << std::endl;
 }
 
 void orb_extractor::compute_image_pyramid(const cv::Mat& image) {
@@ -185,6 +188,7 @@ void orb_extractor::compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>
                 if (!mask.empty()) {
                     if (is_in_mask(min_y, min_x, scale_factor) || is_in_mask(max_y, min_x, scale_factor)
                         || is_in_mask(min_y, max_x, scale_factor) || is_in_mask(max_y, max_x, scale_factor)) {
+                        // std::cout << "fall in mask" << std::endl;
                         continue;
                     }
                 }

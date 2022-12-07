@@ -133,11 +133,13 @@ cd .
 # mkdir build 
 cd build
 cmake \
+	-DCMAKE_BUILD_TYPE=Release \
     -DUSE_PANGOLIN_VIEWER=ON \
     -DINSTALL_PANGOLIN_VIEWER=OFF \
     -DUSE_SOCKET_PUBLISHER=OFF \
     -DBUILD_TESTS=OFF \
     -DBUILD_EXAMPLES=ON \
+    -DUSE_OPENMP=ON \
     ..
 make -j4
 # make install

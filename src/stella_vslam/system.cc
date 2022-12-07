@@ -52,9 +52,6 @@ system::system(const std::shared_ptr<config>& cfg, const std::string& vocab_file
     orb_params_db_ = new data::orb_params_database();
     orb_params_db_->add_orb_params(orb_params_);
 
-    // frame and map publisher
-    frame_publisher_ = std::shared_ptr<publish::frame_publisher>(new publish::frame_publisher(cfg_, map_db_));
-    map_publisher_ = std::shared_ptr<publish::map_publisher>(new publish::map_publisher(cfg_, map_db_));
 
     // map I/O
     auto map_format = system_params["map_format"].as<std::string>("msgpack");
@@ -82,6 +79,10 @@ system::system(const std::shared_ptr<config>& cfg, const std::string& vocab_file
     if (camera_->setup_type_ == camera::setup_type_t::Stereo) {
         extractor_right_ = new feature::orb_extractor(orb_params_, min_size, mask_rectangles);
     }
+
+    // frame and map publisher
+    frame_publisher_ = std::shared_ptr<publish::frame_publisher>(new publish::frame_publisher(cfg_, map_db_, mask_rectangles));
+    map_publisher_ = std::shared_ptr<publish::map_publisher>(new publish::map_publisher(cfg_, map_db_));
 
     if (cfg->marker_model_) {
         if (marker_detector::aruco::is_valid()) {
