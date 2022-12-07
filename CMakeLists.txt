@@ -15,6 +15,7 @@ if(POLICY CMP0074)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_PREFIX_PATH ${PROJECT_SOURCE_DIR}/dependencies)
 
 # ----- Set build type -----
 

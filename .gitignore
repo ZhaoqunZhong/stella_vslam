@@ -1,6 +1,7 @@
+.build
 build/
 devel/
-lib/
+# lib/
 dataset/
 vocab/
 .idea/
@@ -24,24 +25,24 @@ cmake-build-release/
 *.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# *.so
+# *.dylib
+# *.dll
 
 # Fortran module files
 *.mod
 *.smod
 
 # Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# *.lai
+# *.la
+# *.a
+# *.lib
 
 # Executables
-*.exe
-*.out
-*.app
+# *.exe
+# *.out
+# *.app
 
 # vcpkg
 /3rd/vcpkg/
