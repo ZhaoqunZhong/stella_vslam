@@ -20,6 +20,7 @@ orb_extractor::orb_extractor(const orb_params* orb_params,
     : orb_params_(orb_params), mask_rects_(mask_rects), min_size_(min_size) {
     // resize buffers according to the number of levels
     image_pyramid_.resize(orb_params_->num_levels_);
+    mask_pyramid_.resize(orb_params_->num_levels_);
 }
 
 void orb_extractor::extract(const cv::_InputArray& in_image, const cv::_InputArray& in_image_mask,
@@ -113,8 +114,9 @@ void orb_extractor::create_rectangle_mask(const unsigned int cols, const unsigne
         const unsigned int y_max = std::round(rows * mask_rect.at(3));
         cv::rectangle(rect_mask_, cv::Point2i(x_min, y_min), cv::Point2i(x_max, y_max), cv::Scalar(0), -1, cv::LINE_AA);
     }
-    cv::imwrite("mask.jpg",rect_mask_); 
-    std::cout << "mask image created." << std::endl;
+    // cv::imwrite("mask.jpg",rect_mask_); 
+    // std::cout << "mask image created." << std::endl;
+    compute_mask_pyramid(rect_mask_);
 }
 
 void orb_extractor::compute_image_pyramid(const cv::Mat& image) {
@@ -127,6 +129,17 @@ void orb_extractor::compute_image_pyramid(const cv::Mat& image) {
         cv::resize(image_pyramid_.at(level - 1), image_pyramid_.at(level), size, 0, 0, cv::INTER_LINEAR);
     }
 }
+void orb_extractor::compute_mask_pyramid(const cv::Mat& image) {
+    mask_pyramid_.at(0) = image;
+    for (unsigned int level = 1; level < orb_params_->num_levels_; ++level) {
+        // determine the size of an image
+        const double scale = orb_params_->scale_factors_.at(level);
+        const cv::Size size(std::round(image.cols * 1.0 / scale), std::round(image.rows * 1.0 / scale));
+        // resize
+        cv::resize(mask_pyramid_.at(level - 1), mask_pyramid_.at(level), size, 0, 0, cv::INTER_LINEAR);
+    }
+}
+
 
 void orb_extractor::compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>>& all_keypts, const cv::Mat& mask) const {
     all_keypts.resize(orb_params_->num_levels_);
@@ -201,6 +214,21 @@ void orb_extractor::compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>
                 if (keypts_in_cell.empty()) {
                     cv::FAST(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x),
                              keypts_in_cell, orb_params_->min_fast_thr_, true);
+                }
+
+                int MAX_COUNT = 150;
+                // cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
+                // cv::Size subPixWinSize(10,10);
+                std::vector<cv::Point2f> features;
+                if (keypts_in_cell.size() < MAX_COUNT) {
+                    cv::goodFeaturesToTrack(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), features, MAX_COUNT, 0.01, 50, mask_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), 3, 3, 0, 0.04);
+                    // cv::cornerSubPix(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), keypts_in_cell, subPixWinSize, cv::Size(-1,-1), termcrit);
+                    for (auto & ft : features) {
+                        cv::KeyPoint kpt;
+                        kpt.pt.x = ft.x;
+                        kpt.pt.y = ft.y;
+                        keypts_in_cell.push_back(kpt);
+                    }
                 }
 
                 if (keypts_in_cell.empty()) {
