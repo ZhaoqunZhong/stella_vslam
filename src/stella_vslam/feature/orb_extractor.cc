@@ -198,31 +198,43 @@ void orb_extractor::compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>
                 }
 
                 // Pass FAST computation if one of the corners of a patch is in the mask
-                if (!mask.empty()) {
+/*                if (!mask.empty()) {
                     if (is_in_mask(min_y, min_x, scale_factor) || is_in_mask(max_y, min_x, scale_factor)
                         || is_in_mask(min_y, max_x, scale_factor) || is_in_mask(max_y, max_x, scale_factor)) {
+                        // std::cout << "fall in mask" << std::endl;
+                        continue;
+                    }
+                }*/
+                // Pass FAST computation if all corners of a patch is in the mask
+                if (!mask.empty()) {
+                    if (is_in_mask(min_y, min_x, scale_factor) && is_in_mask(max_y, min_x, scale_factor)
+                        && is_in_mask(min_y, max_x, scale_factor) && is_in_mask(max_y, max_x, scale_factor)) {
                         // std::cout << "fall in mask" << std::endl;
                         continue;
                     }
                 }
 
                 std::vector<cv::KeyPoint> keypts_in_cell;
-                cv::FAST(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x),
-                         keypts_in_cell, orb_params_->ini_fast_thr_, true);
+/*                cv::FAST(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x),
+                         keypts_in_cell, orb_params_->ini_fast_thr_, true);*/
 
                 // Re-compute FAST keypoint with reduced threshold if enough keypoint was not got
-                if (keypts_in_cell.empty()) {
+                int tune_fast = 50;
+                if (keypts_in_cell.size() < tune_fast) {
                     cv::FAST(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x),
                              keypts_in_cell, orb_params_->min_fast_thr_, true);
                 }
 
-                int MAX_COUNT = 150;
+
                 // cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
                 // cv::Size subPixWinSize(10,10);
-                std::vector<cv::Point2f> features;
-                if (keypts_in_cell.size() < MAX_COUNT) {
-                    cv::goodFeaturesToTrack(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), features, MAX_COUNT, 0.01, 50, mask_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), 3, 3, 0, 0.04);
+                if (false) {
+                    std::vector<cv::Point2f> features;
+                    cv::goodFeaturesToTrack(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), features, 0, 0.1, 10, mask_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), 5, 5, false, 0.04);
                     // cv::cornerSubPix(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), keypts_in_cell, subPixWinSize, cv::Size(-1,-1), termcrit);
+
+                    // std::cout << "shi tomasi feature " << features.size() << " level " << level << " range " << min_x
+                    // << "," << max_x << "," << min_y << "," << max_y << std::endl;
                     for (auto & ft : features) {
                         cv::KeyPoint kpt;
                         kpt.pt.x = ft.x;
