@@ -47,7 +47,7 @@ if __name__ == "__main__":
         if(os.path.isfile(sys.argv[1]) == True):
             parse_log_file(sys.argv[1])
     else:
-        print "param number is %d, not equal to 2!" %(len(sys.argv))
+        print ("param number is %d, not equal to 2!" %(len(sys.argv)))
         sys.exit(-1)
 
 
