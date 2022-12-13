@@ -3,6 +3,8 @@
 #include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 
+#include <iostream>
+
 namespace stella_vslam {
 namespace camera {
 
