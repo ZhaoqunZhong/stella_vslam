@@ -6,6 +6,7 @@
 #include "stella_vslam/camera/fisheye.h"
 #include "stella_vslam/camera/equirectangular.h"
 #include "stella_vslam/camera/radial_division.h"
+#include "stella_vslam/camera/scaramuzza.h"
 
 #include <spdlog/spdlog.h>
 
@@ -35,6 +36,10 @@ public:
                 }
                 case camera::model_type_t::RadialDivision: {
                     camera = new camera::radial_division(node);
+                    break;
+                }
+                case camera::model_type_t::Scaramuzza: {
+                    camera = new camera::scaramuzza(node);
                     break;
                 }
             }

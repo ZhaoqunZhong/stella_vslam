@@ -12,8 +12,8 @@ namespace stella_vslam {
 namespace publish {
 
 frame_publisher::frame_publisher(const std::shared_ptr<config>& cfg, data::map_database* map_db,
-                                 const unsigned int img_width)
-    : cfg_(cfg), map_db_(map_db), img_width_(img_width),
+                                 const std::vector<std::vector<float>>& mask_rects, const unsigned int img_width)
+    : cfg_(cfg), map_db_(map_db), img_width_(img_width), mask_rects_(mask_rects),
       img_(cv::Mat(480, img_width_, CV_8UC3, cv::Scalar(0, 0, 0))) {
     spdlog::debug("CONSTRUCT: publish::frame_publisher");
 }
@@ -66,6 +66,17 @@ cv::Mat frame_publisher::draw_frame() {
         default: {
             break;
         }
+    }
+
+
+    // draw masks
+    for (const auto& mask_rect : mask_rects_) {
+        // draw black rectangle
+        const unsigned int x_min = std::round(img.cols * mask_rect.at(0));
+        const unsigned int x_max = std::round(img.cols * mask_rect.at(1));
+        const unsigned int y_min = std::round(img.rows * mask_rect.at(2));
+        const unsigned int y_max = std::round(img.rows * mask_rect.at(3));
+        cv::rectangle(img, cv::Point2i(x_min, y_min), cv::Point2i(x_max, y_max), cv::Scalar(0), 2, cv::LINE_AA);
     }
 
     spdlog::trace("num_tracked: {}", num_tracked);

@@ -114,8 +114,9 @@ if(BOW_FRAMEWORK MATCHES "DBoW2")
     message(STATUS "BoW framework: ${BOW_FRAMEWORK} (found in ${DBoW2_INCLUDE_DIRS})")
 elseif(BOW_FRAMEWORK MATCHES "FBoW")
     if(fbow_FOUND)
-        set(BoW_LIBRARY ${fbow_LIBS})
+        set(BoW_LIBRARY fbow::fbow)
         message(STATUS "BoW framework: ${BOW_FRAMEWORK} (found in ${fbow_INCLUDE_DIRS})")
+        message(STATUS "BOW lib: ${BoW_LIBRARY}")
     else()
         target_include_directories(${PROJECT_NAME}
                                 PUBLIC

@@ -36,6 +36,7 @@ public:
 
     //! Image pyramid
     std::vector<cv::Mat> image_pyramid_;
+    std::vector<cv::Mat> mask_pyramid_;
 
 private:
     //! Calculate scale factors and sigmas
@@ -46,6 +47,7 @@ private:
 
     //! Compute image pyramid
     void compute_image_pyramid(const cv::Mat& image);
+    void compute_mask_pyramid(const cv::Mat& image);
 
     //! Compute fast keypoints for cells in each image pyramid
     void compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>>& all_keypts, const cv::Mat& mask) const;

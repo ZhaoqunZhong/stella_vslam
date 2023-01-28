@@ -25,7 +25,8 @@ enum class model_type_t {
     Perspective = 0,
     Fisheye = 1,
     Equirectangular = 2,
-    RadialDivision = 3
+    RadialDivision = 3,
+    Scaramuzza = 4
 };
 
 const std::array<std::string, 4> model_type_to_string = {{"Perspective", "Fisheye", "Equirectangular", "RadialDivision"}};

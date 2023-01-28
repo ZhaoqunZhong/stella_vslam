@@ -83,8 +83,10 @@ image_bounds fisheye::compute_image_bounds() const {
         // check if fov is super wide (four corners are out of view) based on upper-left corner
         const double pwx = (0.0 - cx_) / fx_;
         const double pwy = (0.0 - cy_) / fy_;
-        const double theta_d = sqrt(pwx * pwx + pwy * pwy);
-
+        const double theta_d = sqrt(pwx * pwx + pwy * pwy); // Shouldn't this be tan(theta_d)???
+        std::cout << "What is M_PI in this project -> " << M_PI << std::endl;
+        std::cout << "tan theta: " << theta_d << std::endl;
+        std::cout << "theta: " << atan(theta_d) << std::endl;
         if (theta_d > M_PI / 2) {
             // fov is super wide (four corners are out of view)
 

@@ -5,6 +5,7 @@
 #include <opencv2/core/types.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/features2d.hpp>
+#include <opencv2/opencv.hpp>
 
 #include <iostream>
 
@@ -19,6 +20,7 @@ orb_extractor::orb_extractor(const orb_params* orb_params,
     : orb_params_(orb_params), mask_rects_(mask_rects), min_size_(min_size) {
     // resize buffers according to the number of levels
     image_pyramid_.resize(orb_params_->num_levels_);
+    mask_pyramid_.resize(orb_params_->num_levels_);
 }
 
 void orb_extractor::extract(const cv::_InputArray& in_image, const cv::_InputArray& in_image_mask,
@@ -112,6 +114,9 @@ void orb_extractor::create_rectangle_mask(const unsigned int cols, const unsigne
         const unsigned int y_max = std::round(rows * mask_rect.at(3));
         cv::rectangle(rect_mask_, cv::Point2i(x_min, y_min), cv::Point2i(x_max, y_max), cv::Scalar(0), -1, cv::LINE_AA);
     }
+    // cv::imwrite("mask.jpg",rect_mask_); 
+    // std::cout << "mask image created." << std::endl;
+    compute_mask_pyramid(rect_mask_);
 }
 
 void orb_extractor::compute_image_pyramid(const cv::Mat& image) {
@@ -124,6 +129,17 @@ void orb_extractor::compute_image_pyramid(const cv::Mat& image) {
         cv::resize(image_pyramid_.at(level - 1), image_pyramid_.at(level), size, 0, 0, cv::INTER_LINEAR);
     }
 }
+void orb_extractor::compute_mask_pyramid(const cv::Mat& image) {
+    mask_pyramid_.at(0) = image;
+    for (unsigned int level = 1; level < orb_params_->num_levels_; ++level) {
+        // determine the size of an image
+        const double scale = orb_params_->scale_factors_.at(level);
+        const cv::Size size(std::round(image.cols * 1.0 / scale), std::round(image.rows * 1.0 / scale));
+        // resize
+        cv::resize(mask_pyramid_.at(level - 1), mask_pyramid_.at(level), size, 0, 0, cv::INTER_LINEAR);
+    }
+}
+
 
 void orb_extractor::compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>>& all_keypts, const cv::Mat& mask) const {
     all_keypts.resize(orb_params_->num_levels_);
@@ -182,9 +198,18 @@ void orb_extractor::compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>
                 }
 
                 // Pass FAST computation if one of the corners of a patch is in the mask
-                if (!mask.empty()) {
+/*                if (!mask.empty()) {
                     if (is_in_mask(min_y, min_x, scale_factor) || is_in_mask(max_y, min_x, scale_factor)
                         || is_in_mask(min_y, max_x, scale_factor) || is_in_mask(max_y, max_x, scale_factor)) {
+                        // std::cout << "fall in mask" << std::endl;
+                        continue;
+                    }
+                }*/
+                // Pass FAST computation if all corners of a patch is in the mask
+                if (!mask.empty()) {
+                    if (is_in_mask(min_y, min_x, scale_factor) && is_in_mask(max_y, min_x, scale_factor)
+                        && is_in_mask(min_y, max_x, scale_factor) && is_in_mask(max_y, max_x, scale_factor)) {
+                        // std::cout << "fall in mask" << std::endl;
                         continue;
                     }
                 }
@@ -194,9 +219,28 @@ void orb_extractor::compute_fast_keypoints(std::vector<std::vector<cv::KeyPoint>
                          keypts_in_cell, orb_params_->ini_fast_thr_, true);
 
                 // Re-compute FAST keypoint with reduced threshold if enough keypoint was not got
-                if (keypts_in_cell.empty()) {
+                int tune_fast = cell_size;
+                if (keypts_in_cell.size() < tune_fast) {
                     cv::FAST(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x),
                              keypts_in_cell, orb_params_->min_fast_thr_, true);
+                }
+
+
+                // cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
+                // cv::Size subPixWinSize(10,10);
+                if (false) {
+                    std::vector<cv::Point2f> features;
+                    cv::goodFeaturesToTrack(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), features, 0, 0.1, 10, mask_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), 5, 5, false, 0.04);
+                    // cv::cornerSubPix(image_pyramid_.at(level).rowRange(min_y, max_y).colRange(min_x, max_x), keypts_in_cell, subPixWinSize, cv::Size(-1,-1), termcrit);
+
+                    // std::cout << "shi tomasi feature " << features.size() << " level " << level << " range " << min_x
+                    // << "," << max_x << "," << min_y << "," << max_y << std::endl;
+                    for (auto & ft : features) {
+                        cv::KeyPoint kpt;
+                        kpt.pt.x = ft.x;
+                        kpt.pt.y = ft.y;
+                        keypts_in_cell.push_back(kpt);
+                    }
                 }
 
                 if (keypts_in_cell.empty()) {
