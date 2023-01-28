@@ -9,7 +9,7 @@ namespace stella_vslam {
 namespace camera {
 
 #define SCARAMUZZA_POLY_SIZE 5
-#define SCARAMUZZA_INV_POLY_SIZE 14
+#define SCARAMUZZA_INV_POLY_SIZE 15
 // #define SCARAMUZZA_CAMERA_NUM_PARAMS (SCARAMUZZA_POLY_SIZE + SCARAMUZZA_INV_POLY_SIZE + 2 /*center*/ + 3 /*affine*/)
 
 

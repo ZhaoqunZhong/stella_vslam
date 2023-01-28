@@ -1,0 +1,73 @@
+# LUMIX fisheye model for 1K setting
+
+#==============#
+# Camera Model #
+#==============#
+
+Camera:
+  name: "Baidu fisheye"
+  setup: "monocular"
+  model: "scaramuzza"
+
+  polys: [-7.400343e+02, 0.000000e+00, 1.055416e-03, -1.823602e-06,
+  1.303457e-09] 
+  inv_polys: [1093.022133, 423.667896, -115.474683, 987.950856,
+  9576.099852, 63057.677348, 253026.822525, 662284.245417, 1166666.971812,
+  1400787.438452, 1147276.198637, 630970.863637, 223105.681037, 45873.280788,
+  4172.746643]
+  C: 1
+  D: 0
+  E: 0
+  center_x: 959
+  center_y: 539
+  max_angle: 190
+
+  fps: 30.0
+  cols: 1920
+  rows: 1080
+
+  color_order: "RGB"
+
+#=====================#
+# Tracking Parameters #
+#=====================#
+
+Preprocessing:
+  min_size: 800
+
+#================#
+# orb parameters #
+#================#
+
+Feature:
+  name: "default ORB feature extraction setting"
+  scale_factor: 1.2
+  num_levels: 8
+  ini_fast_threshold: 20
+  min_fast_threshold: 7
+
+#========================#
+# Initializer Parameters #
+#========================#
+
+Initializer:
+  scaling_factor: 5.0
+
+#====================#
+# Mapping Parameters #
+#====================#
+
+Mapping:
+  baseline_dist_thr_ratio: 0.02
+  redundant_obs_ratio_thr: 0.9
+  num_covisibilities_for_landmark_generation: 20
+  num_covisibilities_for_landmark_fusion: 20
+
+#=========================#
+# LoopDetector Parameters #
+#=========================#
+
+LoopDetector:
+  enabled: true
+  reject_by_graph_distance: true
+  min_distance_on_graph: 50
