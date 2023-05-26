@@ -1,5 +1,4 @@
-if [0]; then
-
+: '
 sudo apt update -y
 sudo apt upgrade -y --no-install-recommends
 # basic dependencies
@@ -35,6 +34,7 @@ cd ./3rd
 # tar xf eigen-3.3.7.tar.bz2
 # rm -rf eigen-3.3.7.tar.bz2
 cd eigen-3.3.7
+mkdir build
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -81,14 +81,16 @@ cmake \
     ..
 make -j4
 make install
-
+'
 
 # Download, build and install g2o.
 
-cd ../..
+# cd ../..
+cd 3rd
 # git clone https://github.com/RainerKuemmerle/g2o.git
 cd g2o
 # git checkout 9b41a4ea5ade8e1250b9c1b279f3a9c098811b5a
+mkdir build
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -107,19 +109,20 @@ make install
 
 #(if you plan on using PangolinViewer)
 #Download, build and install Pangolin from source.
-# cd ./3rd
+cd ../..
+cd 3rd
 # git clone https://github.com/stevenlovegrove/Pangolin.git
-# cd Pangolin
+cd Pangolin
 # git checkout ad8b5f83222291c51b4800d5a5873b0e90a0cf81
-# mkdir build && cd build
-# cmake \
-#     -DCMAKE_BUILD_TYPE=Release \
-#     -DCMAKE_INSTALL_PREFIX=../../../dependencies \
-#     ..
-# make -j4
-# make install
+mkdir build && cd build
+cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=../../../dependencies \
+    ..
+make -j4
+make install
 
-
+: '
 cd ../..
 cd backward-cpp
 cd build
@@ -156,12 +159,10 @@ cmake \
 make -j4
 make install
 
-fi; # dependencies
-
+'
 #build
 
-SOURCE_ROOT_DIR=/home/zhaoqun/Documents
-
+cd ../../..
 cd build
 cmake \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
