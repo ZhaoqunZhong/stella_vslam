@@ -1,4 +1,4 @@
-'
+
 sudo apt update -y
 sudo apt upgrade -y --no-install-recommends
 # basic dependencies
@@ -30,7 +30,7 @@ sudo apt install -y
 
 # openMP
 # sudo apt install -y libomp-dev
-'
+
 
 # Download and install Eigen from source.
 cd ./3rd
