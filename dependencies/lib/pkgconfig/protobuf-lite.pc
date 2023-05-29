@@ -1,7 +1,7 @@
-prefix=/home/zhaoqun/Documents/open_vslam/dependencies
-exec_prefix=/home/zhaoqun/Documents/open_vslam/dependencies
-libdir=/home/zhaoqun/Documents/open_vslam/dependencies/lib
-includedir=/home/zhaoqun/Documents/open_vslam/dependencies/include
+prefix=/home/sti/Documents/stella_vslam/dependencies
+exec_prefix=/home/sti/Documents/stella_vslam/dependencies
+libdir=/home/sti/Documents/stella_vslam/dependencies/lib
+includedir=/home/sti/Documents/stella_vslam/dependencies/include
 
 Name: Protocol Buffers
 Description: Google's Data Interchange Format

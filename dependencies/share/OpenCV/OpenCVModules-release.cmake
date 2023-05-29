@@ -75,17 +75,6 @@ set_target_properties(opencv_video PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS opencv_video )
 list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_video "${_IMPORT_PREFIX}/lib/libopencv_video.so.3.4.0" )
 
-# Import target "opencv_viz" for configuration "Release"
-set_property(TARGET opencv_viz APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(opencv_viz PROPERTIES
-  IMPORTED_LINK_DEPENDENT_LIBRARIES_RELEASE "vtkRenderingOpenGL2;vtkCommonCore;vtksys;vtkCommonDataModel;vtkCommonMath;vtkCommonMisc;vtkCommonSystem;vtkCommonTransforms;vtkCommonExecutionModel;vtkIOImage;vtkDICOMParser;vtkmetaio;vtkImagingCore;vtkRenderingCore;vtkCommonColor;vtkCommonComputationalGeometry;vtkFiltersCore;vtkFiltersGeneral;vtkFiltersGeometry;vtkFiltersSources;vtkInteractionStyle;vtkFiltersExtraction;vtkFiltersStatistics;vtkImagingFourier;vtkalglib;vtkRenderingLOD;vtkFiltersModeling;vtkIOPLY;vtkIOCore;vtkFiltersTexture;vtkRenderingFreeType;vtkIOExport;vtkRenderingGL2PSOpenGL2;vtkIOGeometry;vtkIOLegacy"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/lib/libopencv_viz.so.3.4.0"
-  IMPORTED_SONAME_RELEASE "libopencv_viz.so.3.4"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS opencv_viz )
-list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_viz "${_IMPORT_PREFIX}/lib/libopencv_viz.so.3.4.0" )
-
 # Import target "opencv_dnn" for configuration "Release"
 set_property(TARGET opencv_dnn APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(opencv_dnn PROPERTIES

@@ -54,77 +54,77 @@ endif()
 add_library(g2o::stuff SHARED IMPORTED)
 
 set_target_properties(g2o::stuff PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::core
 add_library(g2o::core SHARED IMPORTED)
 
 set_target_properties(g2o::core PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::g2o_cli_library
 add_library(g2o::g2o_cli_library SHARED IMPORTED)
 
 set_target_properties(g2o::g2o_cli_library PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::g2o_cli_application
 add_executable(g2o::g2o_cli_application IMPORTED)
 
 set_target_properties(g2o::g2o_cli_application PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::g2o_hierarchical_library
 add_library(g2o::g2o_hierarchical_library SHARED IMPORTED)
 
 set_target_properties(g2o::g2o_hierarchical_library PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_data
 add_library(g2o::types_data SHARED IMPORTED)
 
 set_target_properties(g2o::types_data PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_slam2d
 add_library(g2o::types_slam2d SHARED IMPORTED)
 
 set_target_properties(g2o::types_slam2d PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_slam3d
 add_library(g2o::types_slam3d SHARED IMPORTED)
 
 set_target_properties(g2o::types_slam3d PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_sba
 add_library(g2o::types_sba SHARED IMPORTED)
 
 set_target_properties(g2o::types_sba PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_sim3
 add_library(g2o::types_sim3 SHARED IMPORTED)
 
 set_target_properties(g2o::types_sim3 PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_icp
 add_library(g2o::types_icp SHARED IMPORTED)
 
 set_target_properties(g2o::types_icp PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_sclam2d
@@ -134,63 +134,63 @@ add_library(g2o::types_sclam2d SHARED IMPORTED)
 add_library(g2o::types_slam2d_addons SHARED IMPORTED)
 
 set_target_properties(g2o::types_slam2d_addons PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::types_slam3d_addons
 add_library(g2o::types_slam3d_addons SHARED IMPORTED)
 
 set_target_properties(g2o::types_slam3d_addons PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::solver_pcg
 add_library(g2o::solver_pcg SHARED IMPORTED)
 
 set_target_properties(g2o::solver_pcg PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::solver_dense
 add_library(g2o::solver_dense SHARED IMPORTED)
 
 set_target_properties(g2o::solver_dense PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::solver_structure_only
 add_library(g2o::solver_structure_only SHARED IMPORTED)
 
 set_target_properties(g2o::solver_structure_only PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::solver_csparse
 add_library(g2o::solver_csparse SHARED IMPORTED)
 
 set_target_properties(g2o::solver_csparse PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::csparse_extension
 add_library(g2o::csparse_extension SHARED IMPORTED)
 
 set_target_properties(g2o::csparse_extension PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::solver_slam2d_linear
 add_library(g2o::solver_slam2d_linear SHARED IMPORTED)
 
 set_target_properties(g2o::solver_slam2d_linear PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Create imported target g2o::solver_eigen
 add_library(g2o::solver_eigen SHARED IMPORTED)
 
 set_target_properties(g2o::solver_eigen PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zhaoqun/Documents/open_vslam/dependencies/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/sti/Documents/stella_vslam/dependencies/include"
 )
 
 # Load information for each installed configuration.

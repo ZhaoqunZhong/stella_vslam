@@ -45,13 +45,13 @@
 
 include("${CMAKE_CURRENT_LIST_DIR}/fbowTargets.cmake")
 
-set(fbow_INCLUDE_DIRS "/home/zhaoqun/Documents/open_vslam/dependencies/include")
-include_directories("/home/zhaoqun/Documents/open_vslam/dependencies/include")
+set(fbow_INCLUDE_DIRS "/home/sti/Documents/stella_vslam/dependencies/include")
+include_directories("/home/sti/Documents/stella_vslam/dependencies/include")
 
-set(fbow_LIB_DIR "/home/zhaoqun/Documents/open_vslam/dependencies/lib")
-link_directories("/home/zhaoqun/Documents/open_vslam/dependencies/lib")
+set(fbow_LIB_DIR "/home/sti/Documents/stella_vslam/dependencies/lib")
+link_directories("/home/sti/Documents/stella_vslam/dependencies/lib")
 
-set(fbow_LIBS opencv_calib3d;opencv_core;opencv_dnn;opencv_features2d;opencv_flann;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_ml;opencv_objdetect;opencv_photo;opencv_shape;opencv_stitching;opencv_superres;opencv_video;opencv_videoio;opencv_videostab;opencv_viz fbow)
+set(fbow_LIBS opencv_calib3d;opencv_core;opencv_dnn;opencv_features2d;opencv_flann;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_ml;opencv_objdetect;opencv_photo;opencv_stitching;opencv_video;opencv_videoio;opencv_aruco;opencv_bgsegm;opencv_bioinspired;opencv_ccalib;opencv_datasets;opencv_dnn_objdetect;opencv_dnn_superres;opencv_dpm;opencv_face;opencv_freetype;opencv_fuzzy;opencv_hdf;opencv_hfs;opencv_img_hash;opencv_line_descriptor;opencv_optflow;opencv_phase_unwrapping;opencv_plot;opencv_quality;opencv_reg;opencv_rgbd;opencv_saliency;opencv_shape;opencv_stereo;opencv_structured_light;opencv_superres;opencv_surface_matching;opencv_text;opencv_tracking;opencv_videostab;opencv_viz;opencv_ximgproc;opencv_xobjdetect;opencv_xphoto fbow)
 
 set(fbow_FOUND TRUE)
 set(fbow_VERSION 0.0.1)

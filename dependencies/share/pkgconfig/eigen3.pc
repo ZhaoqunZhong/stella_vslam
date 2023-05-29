@@ -1,4 +1,4 @@
-prefix=/home/zhaoqun/Documents/open_vslam/dependencies
+prefix=/home/sti/Documents/stella_vslam/dependencies
 exec_prefix=${prefix}
 
 Name: Eigen3

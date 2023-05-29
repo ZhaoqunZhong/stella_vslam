@@ -1,4 +1,4 @@
-: '
+'
 sudo apt update -y
 sudo apt upgrade -y --no-install-recommends
 # basic dependencies
@@ -26,15 +26,21 @@ sudo apt install -y libglew-dev
 sudo apt install -y autogen autoconf libtool
 # Node.js
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt install -y nodejs
+sudo apt install -y 
 
+# openMP
+# sudo apt install -y libomp-dev
+'
+ # bug when switch to stary night
 # Download and install Eigen from source.
 cd ./3rd
 # wget -q https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
 # tar xf eigen-3.3.7.tar.bz2
 # rm -rf eigen-3.3.7.tar.bz2
 cd eigen-3.3.7
-mkdir build
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -45,11 +51,14 @@ make install
 
 # Download, build and install OpenCV from source.
 
-cd ../..
+cd ../.. # back to 3rd
 # wget -q https://github.com/opencv/opencv/archive/3.4.0.zip
 # unzip -q 3.4.0.zip
 # rm -rf 3.4.0.zip
 cd opencv-3.4.0
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -64,6 +73,8 @@ cmake \
     -DWITH_EIGEN=ON \
     -DWITH_FFMPEG=ON \
     -DWITH_OPENMP=ON \
+    -DBUILD_opencv_cudacodec=OFF \
+    -DWITH_CUDA=OFF \
     ..
 make -j4
 make install
@@ -74,6 +85,9 @@ make install
 
 cd ../..
 cd FBoW
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -81,16 +95,18 @@ cmake \
     ..
 make -j4
 make install
-'
+
 
 # Download, build and install g2o.
 
-# cd ../..
-cd 3rd
+cd ../..
+#cd 3rd
 # git clone https://github.com/RainerKuemmerle/g2o.git
 cd g2o
 # git checkout 9b41a4ea5ade8e1250b9c1b279f3a9c098811b5a
-mkdir build
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -114,7 +130,10 @@ cd 3rd
 # git clone https://github.com/stevenlovegrove/Pangolin.git
 cd Pangolin
 # git checkout ad8b5f83222291c51b4800d5a5873b0e90a0cf81
-mkdir build && cd build
+if ! [ -d "build" ]; then
+    mkdir build
+fi
+cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=../../../dependencies \
@@ -122,9 +141,12 @@ cmake \
 make -j4
 make install
 
-: '
+
 cd ../..
 cd backward-cpp
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -137,6 +159,9 @@ make install
 cd ../..
 # git clone https://github.com/shinsumicco/socket.io-client-cpp
 cd socket.io-client-cpp
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -149,6 +174,9 @@ make install
 
 cd ../..
 cd protobuf-3.21.12
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -159,10 +187,13 @@ cmake \
 make -j4
 make install
 
-'
-#build
+
+#build stella_vslam
 
 cd ../../..
+if ! [ -d "build" ]; then
+    mkdir build
+fi
 cd build
 cmake \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \

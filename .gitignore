@@ -10,6 +10,7 @@ cmake-build-release/
 */.python-version
 *.user
 *~
+dependencies/
 
 # Prerequisites
 *.d
