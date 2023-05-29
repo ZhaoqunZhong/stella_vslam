@@ -31,7 +31,7 @@ sudo apt install -y
 # openMP
 # sudo apt install -y libomp-dev
 '
- # bug when switch to stary night
+
 # Download and install Eigen from source.
 cd ./3rd
 # wget -q https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
@@ -92,6 +92,7 @@ cd build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=../../../dependencies \
+    -DCMAKE_PREFIX_PATH=../../../dependencies \
     ..
 make -j4
 make install
